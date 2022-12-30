@@ -8,7 +8,8 @@
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include "../include/mesh.h"
+#include <mesh.h>
+#include <render-window.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -25,11 +26,18 @@ public:
 
 private:
 
-    void InitializeView(){
-
-    }
-
     Ui::MainWindow *_ui;
+
+    MaskMesh * _maskView;
+    WireMesh * _wireView;
+    TextureRenderWindow * _texRender;
+
+
+
+    std::vector<Triangle> _mesh;
+public slots:
+    void RenderMask();
+
 };
 
 

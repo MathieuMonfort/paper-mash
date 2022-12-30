@@ -6,7 +6,6 @@
 #define PAPER_MASH_MESH_H
 
 #include <vector>
-using namespace std;
 
 
 #include <QOpenGLShaderProgram>
@@ -14,63 +13,47 @@ using namespace std;
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
 
-
-struct Point;
-struct Triangle;
+#include <paper-structs.h>
 
 class Mesh : public QOpenGLWidget{
 public:
+    explicit Mesh(QWidget * parent);
+
+    void SetTriangleSet(std::vector<Triangle> triangles);
+    void initializeGL() override;
+    void paintGL() override;
 
 private:
-    vector<Triangle> * _triangles;
 
+    void InitializeGlShaders();
+
+    std::vector<Triangle> _triangles;
+    GLuint _posAttr;
+    GLuint _texAttr;
+
+    QOpenGLShaderProgram * _shader;
+    virtual void PaintSetup(){};
+    void DrawTriangle(Triangle tri);
 
 };
 
 class WireMesh : public Mesh{
-
+public:
+    explicit WireMesh(QWidget * parent): Mesh(parent){}
+private:
+    void PaintSetup() override;
 };
 
 class MaskMesh : public Mesh{
+public:
+    explicit MaskMesh(QWidget * parent): Mesh(parent){}
+private:
+    void PaintSetup() override;
 
 };
 
 
 
-struct Point{
-    float x;
-    float y;
-    Point(float x,float y){
-        this->x = x;
-        this->y = y;
-    }
-};
-
-struct Color{
-    float r;
-    float g;
-    float b;
-    float a;
-    Color(float r, float g, float b, float a){
-        this->r = r;
-        this->g = g;
-        this->b = b;
-        this->a = a;
-    }
-};
-
-struct Triangle{
-    float * data;
-    Color * color;
-    Triangle(Color * color, vector<Point> points){
-        this->color = color;
-        data = new float[6];
-        for(int i =0 ; i< points.size() ; i++ ){
-            *(data + i*2) = points[i].x;
-            *(data + i*2 + 1) = points[i].y;
-        }
-    }
-};
 
 
 #endif //PAPER_MASH_MESH_H

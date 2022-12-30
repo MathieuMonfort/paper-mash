@@ -6,6 +6,13 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(OPENGL_LIBRARY_DIR "libs/freeglut/lib")
+set(GLUT_INCLUDE_DIR "libs/freeglut/include")
+
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+
+
 find_package(Qt6 COMPONENTS
         Core
         Gui
@@ -14,16 +21,21 @@ find_package(Qt6 COMPONENTS
         OpenGLWidgets
         REQUIRED)
 
-find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
-include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
-
+include_directories(include)
 
 add_executable(paper_mash   src/main.cpp
+                            include/stb_image.h
+                            include/stb_image_write.h
                             forms/mainwindow.cpp
                             forms/mainwindow.h
                             forms/mainwindow.ui
-        src/mesh.cpp include/mesh.h)
+                            src/mesh.cpp
+                            include/mesh.h
+                            src/render-window.cpp
+                            include/render-window.h
+                            include/paper-structs.h
+                            src/image-io.cpp
+                            include/image-io.h)
 target_link_libraries(paper_mash
         Qt::Core
         Qt::Gui
@@ -62,3 +74,11 @@ if (WIN32)
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
     endforeach (QT_LIB)
 endif ()
+
+
+file(COPY resources/color.frag DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/ )
+file(COPY resources/color.vert DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/ )
+file(COPY resources/mask.frag DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/ )
+file(COPY resources/mask.vert DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/ )
+file(COPY resources/texture.frag DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/ )
+file(COPY resources/texture.vert DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/ )
