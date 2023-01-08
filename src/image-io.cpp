@@ -4,24 +4,21 @@
 
 #include "image-io.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image_write.h"
+QImage * ImageIO::LoadImageFromFile(QString path) {
+    QImage * res = new QImage(path);
+    return res;
+}
 
-unsigned char *ImageIO::GetDataFromFile(QString path, int &width, int &height, int &channels) {
-    /*unsigned char *data = stbi_load(path.toStdString().c_str(), &width, &height,&channels,0);
+void ImageIO::SaveImageToFile(QString path, QImage * image) {
+    image->save(path);
+}
 
-    if(data == nullptr){
-        width = 0;
-        height = 0;
-        channels = 0;
-    }
-
-    return data;*/
+ImageSequence *ImageIO::LoadSequenceFromPattern(QString pattern) {
+    std::vector<QImage> * images;
+    ImageSequence * res = new ImageSequence(images);
     return nullptr;
 }
 
-void ImageIO::writeDataToFile(QString path, int width, int height, int channels, unsigned char *data) {
-    //stbi_write_png(path.toStdString().c_str(), width,height, channels,data,width* sizeof(unsigned char) * channels);
+void ImageIO::SaveSequenceToPattern(QString pattern) {
+
 }

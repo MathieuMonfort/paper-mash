@@ -12,6 +12,34 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), _ui(new Ui::MainWindow) {
     _ui->setupUi(this);
 
+
+
+    connect(_ui->import_button,&QPushButton::pressed, this, &MainWindow::ImportSequence);
+}
+
+MainWindow::~MainWindow() {
+    delete _ui;
+}
+
+void MainWindow::RenderMask() {
+    auto seq =  ImageIO::LoadSequenceFromPattern("C:/images/img_#####");
+
+    _texRender = new TextureRenderWindow(nullptr,seq);
+    _texRender->SetTriangleSet(_mesh);
+    _texRender->show();
+
+}
+
+void MainWindow::ImportSequence() {
+    
+        _inSequence = ImageIO::LoadSequenceFromPattern(_ui->input_path_edit->text());
+        if(!_inSequence){
+            QMessageBox mb(nullptr);
+            mb.setText("Sequence could not be loaded");
+            mb.show();
+            return;
+        }
+
     _maskView = new MaskMesh(this);
     _wireView = new WireMesh(this);
 
@@ -19,9 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _wireView->setFixedSize(1920/4,1080/4);
 
     Triangle tri1(new Color(1.0f,1.0f,1.0f,1.0f),{
-        Point(-0.0f,1.0f),
-        Point(0.5f,-0.5f),
-        Point(-0.5f,-0.5f)
+            Point(-0.0f,1.0f),
+            Point(0.5f,-0.5f),
+            Point(-0.5f,-0.5f)
     }) ;
 
     _mesh = {tri1};
@@ -32,16 +60,5 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->down_view_panel->layout()->addWidget(_wireView);
 
     connect(_ui->export_button ,&QPushButton::pressed ,this, &MainWindow::RenderMask);
-
-}
-
-MainWindow::~MainWindow() {
-    delete _ui;
-}
-
-void MainWindow::RenderMask() {
-    _texRender = new TextureRenderWindow(nullptr);
-    _texRender->SetTriangleSet(_mesh);
-    _texRender->show();
 
 }

@@ -41,7 +41,8 @@ void RenderWindow::DrawTriangle(Triangle tri) {
 void RenderWindow::RenderFrame(int frame, QString path) {
     unsigned char * data = new unsigned char[this->width() * this->height() * 4];
     glReadPixels(0,0,this->width(),this->height(), GL_RGBA, GL_UNSIGNED_BYTE ,data);
-    ImageIO::writeDataToFile(path,this->width(), this->height(), 4,data );
+    QImage * img = new QImage();
+    ImageIO::SaveImageToFile(path,img);
 }
 
 void MaskRenderWindow::InitializeGlShaders() {
@@ -78,9 +79,8 @@ void TextureRenderWindow::InitializeGlShaders() {
     _posAttr = 0;
     _texAttr = 1;
 
-    _shader->setUniformValue("texture",0);
     _shader->link();
-
+    _shader->setUniformValue("texture",0);
 }
 
 void TextureRenderWindow::PaintSetup() {

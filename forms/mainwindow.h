@@ -6,6 +6,7 @@
 #define PAPER_MASH_MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <mesh.h>
@@ -32,11 +33,13 @@ private:
     WireMesh * _wireView;
     TextureRenderWindow * _texRender;
 
-
-
+    ImageSequence * _inSequence;
     std::vector<Triangle> _mesh;
+
 public slots:
     void RenderMask();
+    void ImportSequence();
+
 
 };
 

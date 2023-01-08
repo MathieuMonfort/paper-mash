@@ -24,9 +24,7 @@ find_package(Qt6 COMPONENTS
 include_directories(include)
 
 add_executable(paper_mash   src/main.cpp
-                            include/stb_image.h
-                            include/stb_image_write.h
-                            forms/mainwindow.cpp
+        forms/mainwindow.cpp
                             forms/mainwindow.h
                             forms/mainwindow.ui
                             src/mesh.cpp

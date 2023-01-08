@@ -35,11 +35,6 @@ void Mesh::InitializeGlShaders() {
     _shader->bindAttributeLocation("aTex",1);
     _shader->link();
 
-//    _posAttr = _shader->attributeLocation("apos");
-//    Q_ASSERT(_posAttr != -1);
-//    _texAttr = _shader->attributeLocation("atex");
-//    Q_ASSERT(_texAttr != -1);
-
 
 }
 
