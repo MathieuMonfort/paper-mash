@@ -17,6 +17,7 @@ void ImageIO::SaveImageToFile(QString path, QImage * image) {
 }
 
 ImageSequence *ImageIO::LoadSequenceFromPattern(QString firstImage) {
+
     QFileInfo first(firstImage);
     QString ext = first.suffix();
     int leadingZeros;
@@ -36,7 +37,7 @@ void ImageIO::SaveSequenceToPattern(QString pattern) {
 
 QString ImageIO::getBaseName(QString FullName, int &leadingZeros) {
     leadingZeros =0;
-    int lastBaseCharacter;
+    int baseCharacterNumbers = 0;
     QString res = "";
 
     for(int i = FullName.length() -1 ;i>= 0 ;i--){
@@ -44,12 +45,12 @@ QString ImageIO::getBaseName(QString FullName, int &leadingZeros) {
             leadingZeros ++;
         }
         else{
-            lastBaseCharacter = i;
+            baseCharacterNumbers = i+1;
             break;
         }
     }
 
-    for(int i = 0; i <= lastBaseCharacter; i++ ){
+    for(int i = 0; i < baseCharacterNumbers; i++ ){
         res += FullName[i];
     }
 
