@@ -36,7 +36,7 @@ void MainWindow::ImportSequence() {
         if(!_inSequence){
             QMessageBox mb(nullptr);
             mb.setText("Sequence could not be loaded");
-            mb.show();
+            mb.exec();
             return;
         }
 

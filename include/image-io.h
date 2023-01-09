@@ -7,6 +7,8 @@
 
 #include <QString>
 #include <QImage>
+#include <QFileInfo>
+#include <QDir>
 #include <paper-structs.h>
 
 
@@ -14,28 +16,14 @@ class ImageIO {
 public:
     static QImage * LoadImageFromFile(QString path);
     static void SaveImageToFile(QString path, QImage * image);
-    static ImageSequence * LoadSequenceFromPattern(QString pattern);
+    static ImageSequence * LoadSequenceFromPattern(QString firstImage);
     static void SaveSequenceToPattern(QString pattern);
 
 
 private:
-};
+    static const QString _numbers;
+    static QString getBaseName(QString FullName, int &leadingZeros);
 
-class LoadException : public std::exception{
-public:
-    explicit LoadException(const std::string& message) :msg_(message){}
-
-    virtual ~LoadException() noexcept {}
-
-    virtual const char * what() const noexcept{
-        return msg_.c_str();
-    }
-
-public:
-    explicit LoadException(const char * message) :msg_(message){}
-
-protected:
-    std::string msg_;
 };
 
 
