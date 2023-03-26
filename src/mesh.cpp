@@ -15,7 +15,7 @@ void Mesh::initializeGL() {
 }
 
 void Mesh::paintGL() {
-    context()->functions()->glClearColor(0.0,0.0,0.0,1.0);
+    context()->functions()->glClearColor(1.0,0.0,0.0,1.0);
 
     PaintSetup();
     _shader->bind();

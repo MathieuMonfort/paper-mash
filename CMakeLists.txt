@@ -23,17 +23,22 @@ find_package(Qt6 COMPONENTS
 
 include_directories(include)
 
-add_executable(paper_mash   src/main.cpp
+add_executable(paper_mash src/main.cpp
         forms/mainwindow.cpp
-                            forms/mainwindow.h
-                            forms/mainwindow.ui
-                            src/mesh.cpp
-                            include/mesh.h
-                            src/render-window.cpp
-                            include/render-window.h
-                            include/paper-structs.h
-                            src/image-io.cpp
-                            include/image-io.h)
+        forms/mainwindow.h
+        forms/synced-dual-scroller.cpp
+        forms/synced-dual-scroller.h
+
+        include/image-io.h
+        include/mesh.h
+        include/paper-structs.h
+        include/render-window.h
+
+        src/render-window.cpp
+        src/image-io.cpp
+        src/mesh.cpp)
+
+
 target_link_libraries(paper_mash
         Qt::Core
         Qt::Gui

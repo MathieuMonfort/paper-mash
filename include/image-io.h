@@ -9,20 +9,23 @@
 #include <QImage>
 #include <QFileInfo>
 #include <QDir>
+#include <math.h>
+#include <sstream>
 #include <paper-structs.h>
+
 
 
 class ImageIO {
 public:
     static QImage * LoadImageFromFile(QString path);
     static void SaveImageToFile(QString path, QImage * image);
-    static ImageSequence * LoadSequenceFromPattern(QString firstImage);
+    static ImageSequence * LoadSequenceFromPattern(QString firstImagePath);
     static void SaveSequenceToPattern(QString pattern);
 
 
 private:
     static const QString _numbers;
-    static QString getBaseName(QString FullName, int &leadingZeros);
+    static QString getBaseName(QString FullName,int &firstIndex, int &leadingZeros);
 
 };
 

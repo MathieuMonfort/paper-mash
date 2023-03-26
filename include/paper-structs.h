@@ -42,8 +42,13 @@ struct Triangle{
 
 struct ImageSequence{
     std::vector<QImage> * images;
-    ImageSequence(std::vector<QImage> * images){
+    int frames;
+    int firstIndex;
+
+    ImageSequence(std::vector<QImage> * images,int firstIndex){
         this->images = images;
+        this->firstIndex = firstIndex;
+        this->frames = images->size();
     }
 };
 
